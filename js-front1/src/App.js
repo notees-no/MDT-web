@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import EmployeeAPI from "./api/service";
+import Table from "./Table";
+import { useState } from "react";
+
+const initialEmployees = EmployeeAPI.all();
 
 function App() {
+  const [employees, setEmployees] = useState(initialEmployees);
+
+  const delEmp = (id) => {
+    if (EmployeeAPI.delete(id)) {
+      setEmployees(employees.filter((employee) => employee.id !== id));
+    }
+  };
+
+  const addEmployee = (employee) => {
+    const newEmployee = EmployeeAPI.add(employee);
+    if (newEmployee) {
+      setEmployees([...employees, newEmployee]);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table employees={employees} delEmployee={delEmp} />
     </div>
   );
 }
