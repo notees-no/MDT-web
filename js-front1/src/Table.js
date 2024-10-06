@@ -1,32 +1,34 @@
 import React from "react";
+import { Table as MuiTable, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import Button from '@mui/material/Button';
 
-const Table = ({ employees, delEmployee }) => {
+const EmployeeTable = ({ employees, delEmployee }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Address</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody>
+    <MuiTable sx={{ border: '1px solid #ccc' }}>
+      <TableHead>
+        <TableRow>
+          <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Job</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Address</TableCell>
+          <TableCell sx={{ fontWeight: 'bold' }}>Remove</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {employees.map((employee, index) => {
           return (
-            <tr key={index}>
-              <td>{employee.name}</td>
-              <td>{employee.job}</td>
-              <td>{employee.address}</td>
-              <td>
-                <button onClick={() => delEmployee(employee.id)}>Delete</button>
-              </td>
-            </tr>
+            <TableRow key={index}>
+              <TableCell>{employee.name}</TableCell>
+              <TableCell>{employee.job}</TableCell>
+              <TableCell>{employee.address}</TableCell>
+              <TableCell>
+                <Button onClick={() => delEmployee(employee.id)} sx={{ backgroundColor: 'red', color: 'white' }}>Delete</Button>
+              </TableCell>
+            </TableRow>
           );
         })}
-      </tbody>
-    </table>
+      </TableBody>
+    </MuiTable>
   );
 };
 
-export default Table;
+export default EmployeeTable;

@@ -1,8 +1,8 @@
-import "./App.css";
 import EmployeeAPI from "./api/service";
-import Table from "./Table";
+import EmployeeTable from "./Table";
 import { useState } from "react";
 import Form from "./Form";
+import { Box } from '@mui/material';
 
 const initialEmployees = EmployeeAPI.all();
 
@@ -23,10 +23,11 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Form handleSubmit={addEmployee} inEmployee={{ name: "", job: "" , address: ""}} />
-      <Table employees={employees} delEmployee={delEmp} />
-    </div>
+    <Box sx={{ padding: '20px' }}>
+      <Form handleSubmit={addEmployee} inEmployee={{ name: "", job: "", address: "" }} />
+      <Box sx={{ marginBottom: '20px' }} />
+      <EmployeeTable employees={employees} delEmployee={delEmp} />
+    </Box>
   );
 }
 
