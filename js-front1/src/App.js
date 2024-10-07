@@ -1,13 +1,12 @@
+import React from 'react';
+import ThemForm from './ThemForm';
+import ThemTable from './ThemTable';
 import EmployeeAPI from "./api/service";
-import EmployeeTable from "./Table";
-import { useState } from "react";
-import Form from "./Form";
-import { Box } from '@mui/material';
 
 const initialEmployees = EmployeeAPI.all();
 
 function App() {
-  const [employees, setEmployees] = useState(initialEmployees);
+  const [employees, setEmployees] = React.useState(initialEmployees);
 
   const delEmp = (id) => {
     if (EmployeeAPI.delete(id)) {
@@ -23,11 +22,10 @@ function App() {
   };
 
   return (
-    <Box sx={{ padding: '20px' }}>
-      <Form handleSubmit={addEmployee} inEmployee={{ name: "", job: "", address: "" }} />
-      <Box sx={{ marginBottom: '20px' }} />
-      <EmployeeTable employees={employees} delEmployee={delEmp} />
-    </Box>
+    <div>
+      <ThemForm handleSubmit={addEmployee} inEmployee={{ name: "", job: "", address: "" }} />
+      <ThemTable employees={employees} delEmployee={delEmp} />
+    </div>
   );
 }
 

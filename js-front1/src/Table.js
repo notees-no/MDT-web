@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 
 const EmployeeTable = ({ employees, delEmployee }) => {
   return (
-    <MuiTable sx={{ border: '1px solid #ccc' }}>
+    <MuiTable>
       <TableHead>
         <TableRow>
-          <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Job</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Address</TableCell>
-          <TableCell sx={{ fontWeight: 'bold' }}>Remove</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Job</TableCell>
+          <TableCell>Address</TableCell>
+          <TableCell>Remove</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -21,7 +21,7 @@ const EmployeeTable = ({ employees, delEmployee }) => {
               <TableCell>{employee.job}</TableCell>
               <TableCell>{employee.address}</TableCell>
               <TableCell>
-                <Button onClick={() => delEmployee(employee.id)} sx={{ backgroundColor: 'red', color: 'white' }}>Delete</Button>
+                <Button onClick={() => delEmployee(employee.id)}>Delete</Button>
               </TableCell>
             </TableRow>
           );

@@ -22,23 +22,20 @@ const Form = ({ handleSubmit, inEmployee }) => {
         name="name"
         value={employee.name}
         onChange={handleChange}
-        sx={{ width: '100%' }}
       />
       <TextField
         label="Job"
         name="job"
         value={employee.job}
         onChange={handleChange}
-        sx={{ width: '100%' }}
       />
       <TextField
         label="Address"
         name="address"
         value={employee.address}
         onChange={handleChange}
-        sx={{ width: '100%' }}
       />
-      <Button type="submit" sx={{ backgroundColor: 'blue', color: 'white' }}>Add</Button>
+      <Button type="submit">Add</Button>
     </form>
   );
 };
