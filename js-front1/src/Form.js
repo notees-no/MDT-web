@@ -1,44 +1,52 @@
 import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Box } from '@mui/material';
 import formTheme from './formTheme';
 
-const Form = ({ handleSubmit, inEmployee }) => {
-  const [employee, setEmployee] = React.useState(inEmployee);
+const Form = ({ handleSubmit, inSubscription }) => {
+  const [subscription, setSubscription] = React.useState(inSubscription);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setEmployee({ ...employee, [name]: value });
+    setSubscription({ ...subscription, [name]: value });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(employee);
+    handleSubmit(subscription);
+    setSubscription(inSubscription);
   };
 
+  // Box используем как контейнер формы
   return (
     <ThemeProvider theme={formTheme}>
-      <form onSubmit={onSubmit}>
+      <Box component="form" onSubmit={onSubmit} sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' }, // Стили для всех TextField
+        padding: '24px',
+        backgroundColor: '#f7f7f8',
+        borderRadius: '8px',
+      }}>
         <TextField
-          label="Name"
+          label="Название"
           name="name"
-          value={employee.name}
+          value={subscription.name}
           onChange={handleChange}
         />
         <TextField
-          label="Job"
-          name="job"
-          value={employee.job}
+          label="Категоря"
+          name="category"
+          value={subscription.category}
           onChange={handleChange}
         />
         <TextField
-          label="Address"
-          name="address"
-          value={employee.address}
+          label="Подписчики"
+          name="followers"
+          type="number"
+          value={subscription.followers}
           onChange={handleChange}
         />
-        <Button type="submit">Add</Button>
-      </form>
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>Отслеживать</Button>
+      </Box>
     </ThemeProvider>
   );
 };

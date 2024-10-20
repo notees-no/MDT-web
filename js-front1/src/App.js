@@ -1,26 +1,26 @@
 import React from 'react';
 import Form from './Form';
 import Table from './Table';
-import EmployeeAPI from "./api/service";
+import TwitchAPI from "./api/service";
 import Login from './Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-const initialEmployees = EmployeeAPI.all();
+const initialSubscriptions = TwitchAPI.all();
 
 function App() {
-  const [employees, setEmployees] = React.useState(initialEmployees);
+  const [subscriptions, setSubscriptions] = React.useState(initialSubscriptions);
   const [authenticatedUser, setAuthenticatedUser] = React.useState(null);
 
-  const delEmp = (id) => {
-    if (EmployeeAPI.delete(id)) {
-      setEmployees(employees.filter((employee) => employee.id !== id));
+  const delSubscription = (id) => {
+    if (TwitchAPI.delete(id)) {
+      setSubscriptions(subscriptions.filter((subscription) => subscription.id !== id));
     }
   };
 
-  const addEmployee = (employee) => {
-    const newEmployee = EmployeeAPI.add(employee);
-    if (newEmployee) {
-      setEmployees([...employees, newEmployee]);
+  const addSubscription = (subscription) => {
+    const newSubscription = TwitchAPI.add(subscription);
+    if (newSubscription) {
+      setSubscriptions([...subscriptions, newSubscription]);
     }
   };
 
@@ -30,8 +30,8 @@ function App() {
         <Route path="/login" element={<Login setAuthenticatedUser={setAuthenticatedUser} />} />
         <Route path="/main" element={authenticatedUser ? (
           <div>
-            <Form handleSubmit={addEmployee} inEmployee={{ name: "", job: "", address: "" }} />
-            <Table employees={employees} delEmployee={delEmp} />
+            <Form handleSubmit={addSubscription} inSubscription={{ name: "", category: "", followers: 0, lastStream: "" }} />
+            <Table subscriptions={subscriptions} delSubscription={delSubscription} />
           </div>
         ) : <Navigate to="/login" />} />
         <Route path="*" element={<Navigate to="/login" />} />

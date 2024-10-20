@@ -5,23 +5,31 @@ const formTheme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          margin: '10px',
-          width: '100%',
+          marginBottom: '16px',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#E5E5E5', // Светлый цвет границы поля ввода
+            },
+            '&:hover fieldset': {
+              borderColor: '#9146FF', // Фиолетовый цвет при наведении
+            },
+          },
+          '& .MuiInputLabel-root': {
+            color: '#53535F', // Цвет названий
+          },
+          '& .MuiInputBase-input': {
+            color: '#0E0E10', // Цвет текста ввода
+          },
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          margin: '20px',
-          padding: '10px 20px',
-          fontSize: '16px',
-          fontWeight: 'bold',
-          borderRadius: '5px',
-          backgroundColor: '#4CAF50',
-          color: '#fff',
+          backgroundColor: '#9146FF', // Основной цвет кнопки
+          color: 'white',
           '&:hover': {
-            backgroundColor: '#6ecc72',
+            backgroundColor: '#772CE8', // Фиолетовый цвет при наведении
           },
         },
       },

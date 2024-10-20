@@ -1,40 +1,41 @@
-const EmployeeAPI = {
-    employees: [
-      { id: 1, name: "Ben Blocker", job: "Teacher", address: "Street: 2345 Oakwood Drive" },
-      { id: 2, name: "Dave Defender", job: "Student", address: "Street: 1456 Maple Street" },
-      { id: 3, name: "Sam Sweeper", job: "Teacher", address: "Street: 9876 Park Avenue" },
-      { id: 4, name: "Matt Midfielder", job: "Student", address: "Street: 3456 Elm Street" },
-      { id: 5, name: "William Winger", job: "Student", address: "Street: 1234 Main Street" },
-      { id: 6, name: "Fillipe Forward", job: "Rector", address: "Street: 5678 Cedar Lane" },
-    ],
-    all: function () {
-      return this.employees;
-    },
-    get: function (id) {
-      const isEmployee = (p) => p.id === id;
-      return this.employees.find(isEmployee);
-    },
-    delete: function (id) {
-      const isNotDelEmployee = (p) => p.id !== id;
-      this.employees = this.employees.filter(isNotDelEmployee);
-      return true;
-    },
-    add: function (employee) {
-      if (!employee.id)
-        employee = {
-          ...employee,
-          id:
-            this.employees.reduce((prev, current) => {
-              return prev.id > current.id ? prev : current;
-            }, 0).id + 1,
-        };
-      this.employees = [...this.employees, employee];
-      return employee;
-    },
-    update: function (employee) {
-      this.get();
-      this.employees.shift(employee);
-      return employee;
-    },
-  };
-  export default EmployeeAPI;
+const TwitchAPI = {
+  subscriptions: [
+    { id: 1, name: "Ninja", category: "Gaming", followers: 18000000},
+    { id: 2, name: "Pokimane", category: "Just Chatting", followers: 9000000},
+    { id: 3, name: "Shroud", category: "FPS", followers: 10000000},
+    { id: 4, name: "IRL_Explorer", category: "IRL", followers: 500000},
+    { id: 5, name: "CookingMaster", category: "Food & Drink", followers: 2000000}
+],
+  all: function () {
+    return this.subscriptions;
+  },
+  get: function (id) {
+    const isSubscription = (s) => s.id === id;
+    return this.subscriptions.find(isSubscription);
+  },
+  delete: function (id) {
+    const isNotDelSubscription = (s) => s.id !== id;
+    this.subscriptions = this.subscriptions.filter(isNotDelSubscription);
+    return true;
+  },
+  add: function (subscription) {
+    if (!subscription.id)
+      subscription = {
+        ...subscription,
+        id: this.subscriptions.reduce((prev, current) => {
+          return prev.id > current.id ? prev : current;
+        }, 0).id + 1,
+      };
+    this.subscriptions = [...this.subscriptions, subscription];
+    return subscription;
+  },
+  update: function (subscription) {
+    const index = this.subscriptions.findIndex(s => s.id === subscription.id);
+    if (index !== -1) {
+      this.subscriptions[index] = subscription;
+    }
+    return subscription;
+  },
+};
+
+export default TwitchAPI;

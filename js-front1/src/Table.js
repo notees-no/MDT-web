@@ -1,38 +1,37 @@
 import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import tableTheme from './tableTheme';
 
-const EmployeeTable = ({ employees, delEmployee }) => {
+const SubscriptionTable = ({ subscriptions, delSubscription }) => {
   return (
-    <ThemeProvider theme={tableTheme}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Job</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Remove</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {employees.map((employee, index) => {
-            return (
-              <TableRow key={index}>
-                <TableCell>{employee.name}</TableCell>
-                <TableCell>{employee.job}</TableCell>
-                <TableCell>{employee.address}</TableCell>
-                <TableCell>
-                  <Button onClick={() => delEmployee(employee.id)}>Delete</Button>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+    // Box - это контейнер с отступами
+    // Мап каждую подписку в отдельную карточку
+    // variant="h5" - заголовок 5-го уровня
+    // toLocaleString() форматирует число для удобного чтения
+    <ThemeProvider theme={tableTheme}> 
+      <Box sx={{ padding: '24px' }}> 
+        {subscriptions.map((subscription, index) => (
+          <Card key={index} sx={{ marginBottom: '16px' }}>
+            <CardContent>
+              <Typography variant="h5" component="div">
+                {subscription.name}
+              </Typography>
+              <Typography color="text.secondary">
+                Категория: {subscription.category}
+              </Typography>
+              <Typography color="text.secondary">
+                Подписчики: {subscription.followers.toLocaleString()}
+              </Typography>
+              <Button onClick={() => delSubscription(subscription.id)}>
+                Перестать отслеживать
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
     </ThemeProvider>
   );
 };
 
-export default EmployeeTable;
+export default SubscriptionTable;
