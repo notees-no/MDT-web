@@ -1,5 +1,7 @@
 import React from "react";
+import { ThemeProvider } from '@mui/material/styles';
 import { TextField, Button } from '@mui/material';
+import formTheme from './formTheme';
 
 const Form = ({ handleSubmit, inEmployee }) => {
   const [employee, setEmployee] = React.useState(inEmployee);
@@ -12,31 +14,32 @@ const Form = ({ handleSubmit, inEmployee }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     handleSubmit(employee);
-    setEmployee(inEmployee);
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <TextField
-        label="Name"
-        name="name"
-        value={employee.name}
-        onChange={handleChange}
-      />
-      <TextField
-        label="Job"
-        name="job"
-        value={employee.job}
-        onChange={handleChange}
-      />
-      <TextField
-        label="Address"
-        name="address"
-        value={employee.address}
-        onChange={handleChange}
-      />
-      <Button type="submit">Add</Button>
-    </form>
+    <ThemeProvider theme={formTheme}>
+      <form onSubmit={onSubmit}>
+        <TextField
+          label="Name"
+          name="name"
+          value={employee.name}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Job"
+          name="job"
+          value={employee.job}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Address"
+          name="address"
+          value={employee.address}
+          onChange={handleChange}
+        />
+        <Button type="submit">Add</Button>
+      </form>
+    </ThemeProvider>
   );
 };
 
