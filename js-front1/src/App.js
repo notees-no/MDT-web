@@ -1,8 +1,8 @@
 import React from 'react';
-import Form from './Form';
-import Table from './Table';
+import Form from './pages/components/Subscriptions/Form';
+import Table from './pages/components/Subscriptions/Table';
 import TwitchAPI from "./api/service";
-import Login from './Login';
+import Login from './pages/components/Login/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const initialSubscriptions = TwitchAPI.all();
