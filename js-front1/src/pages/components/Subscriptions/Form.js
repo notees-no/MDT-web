@@ -1,9 +1,9 @@
 import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { TextField, Button, Box } from '@mui/material';
-import formTheme from './formTheme';
+import { lightTheme, darkTheme } from '../../../theme';
 
-const Form = ({ handleSubmit, inSubscription }) => {
+const Form = ({ handleSubmit, inSubscription, isDarkTheme }) => {
   const [subscription, setSubscription] = React.useState(inSubscription);
 
   const handleChange = (event) => {
@@ -17,26 +17,25 @@ const Form = ({ handleSubmit, inSubscription }) => {
     setSubscription(inSubscription);
   };
 
-  // Box используем как контейнер формы
   return (
-    <ThemeProvider theme={formTheme}>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <Box component="form" onSubmit={onSubmit} sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' }, // Стили для всех TextField
-        padding: '24px',
-        backgroundColor: '#f7f7f8',
-        borderRadius: '8px',
+        padding: '24px', display: 'flex', flexDirection: 'row',
+        backgroundColor: isDarkTheme ? 'background.paper' : 'background.default',
       }}>
         <TextField
           label="Название"
           name="name"
           value={subscription.name}
           onChange={handleChange}
+          sx={{ marginRight: '16px', flex: '1 1 auto', minWidth: '150px', maxWidth: '150px', }}
         />
         <TextField
-          label="Категоря"
+          label="Категория"
           name="category"
           value={subscription.category}
           onChange={handleChange}
+          sx={{ marginRight: '16px', flex: '1 1 auto', minWidth: '150px', maxWidth: '150px', }}
         />
         <TextField
           label="Подписчики"
@@ -44,8 +43,9 @@ const Form = ({ handleSubmit, inSubscription }) => {
           type="number"
           value={subscription.followers}
           onChange={handleChange}
+          sx={{ marginRight: '16px', flex: '1 1 auto', minWidth: '150px', maxWidth: '150px', }}
         />
-        <Button type="submit" variant="contained" sx={{ mt: 2 }}>Отслеживать</Button>
+        <Button type="submit" variant="contained" sx={{ mt: 2, minWidth: '200px', maxWidth: '200px', }}>Отслеживать</Button>
       </Box>
     </ThemeProvider>
   );

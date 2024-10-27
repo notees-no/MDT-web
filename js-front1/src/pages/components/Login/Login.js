@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { TextField, Button, Typography } from '@mui/material';
-import loginTheme from './loginTheme';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import { lightTheme, darkTheme } from '../../../theme';
 
 const users = [
   { id: 1, username: 'user', password: '123' },
   { id: 2, username: 'admin', password: '123' },
-  { id: 3, username: '1',  password: '1' },
+  { id: 3, username: '1', password: '1' },
 ];
 
-const Login = ({ setAuthenticatedUser }) => {
+const Login = ({ setAuthenticatedUser, isDarkTheme }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
@@ -31,9 +31,9 @@ const Login = ({ setAuthenticatedUser }) => {
   }
 
   return (
-    <ThemeProvider theme={loginTheme}>
-      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: '300px', padding: '20px', backgroundColor: 'white', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'background.default' }}>
+        <Box sx={{ width: '300px', padding: '20px', backgroundColor: 'background.paper', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
           <Typography variant="h4" component="h1" gutterBottom>
             Вход
           </Typography>
@@ -55,8 +55,8 @@ const Login = ({ setAuthenticatedUser }) => {
             </div>
             <Button type="submit">Войти</Button>
           </form>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 };

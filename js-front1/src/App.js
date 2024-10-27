@@ -1,15 +1,17 @@
 import React from 'react';
-import Form from './pages/components/Subscriptions/Form';
-import Table from './pages/components/Subscriptions/Table';
+import Router from './Router';
 import TwitchAPI from "./api/service";
-import Login from './pages/components/Login/Login';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ThemeChangeButton from './ThemeChangeButton';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { lightTheme, darkTheme } from './theme';
 
 const initialSubscriptions = TwitchAPI.all();
 
 function App() {
   const [subscriptions, setSubscriptions] = React.useState(initialSubscriptions);
   const [authenticatedUser, setAuthenticatedUser] = React.useState(null);
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const delSubscription = (id) => {
     if (TwitchAPI.delete(id)) {
@@ -24,19 +26,23 @@ function App() {
     }
   };
 
+  const changeTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login setAuthenticatedUser={setAuthenticatedUser} />} />
-        <Route path="/main" element={authenticatedUser ? (
-          <div>
-            <Form handleSubmit={addSubscription} inSubscription={{ name: "", category: "", followers: 0, lastStream: "" }} />
-            <Table subscriptions={subscriptions} delSubscription={delSubscription} />
-          </div>
-        ) : <Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <BrowserRouter>
+        <ThemeChangeButton isDarkTheme={isDarkTheme} changeTheme={changeTheme} />
+        <Router
+          authenticatedUser={authenticatedUser}
+          addSubscription={addSubscription}
+          subscriptions={subscriptions}
+          delSubscription={delSubscription}
+          isDarkTheme={isDarkTheme}
+          setAuthenticatedUser={setAuthenticatedUser}
+        />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

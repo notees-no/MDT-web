@@ -1,18 +1,18 @@
 import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
-import tableTheme from './tableTheme';
+import { lightTheme, darkTheme } from '../../../theme';
 
-const SubscriptionTable = ({ subscriptions, delSubscription }) => {
+const SubscriptionTable = ({ subscriptions, delSubscription, isDarkTheme }) => {
   return (
     // Box - это контейнер с отступами
     // Мап каждую подписку в отдельную карточку
     // variant="h5" - заголовок 5-го уровня
     // toLocaleString() форматирует число для удобного чтения
-    <ThemeProvider theme={tableTheme}> 
-      <Box sx={{ padding: '24px' }}> 
+    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+      <Box sx={{ padding: '24px', backgroundColor: isDarkTheme ? 'background.paper' : 'background.default', height: '100vh', }}>
         {subscriptions.map((subscription, index) => (
-          <Card key={index} sx={{ marginBottom: '16px' }}>
+          <Card key={index}>
             <CardContent>
               <Typography variant="h5" component="div">
                 {subscription.name}
