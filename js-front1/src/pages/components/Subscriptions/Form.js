@@ -2,9 +2,12 @@ import React from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { TextField, Button, Box } from '@mui/material';
 import { lightTheme, darkTheme } from '../../../theme';
+import { useDispatch } from 'react-redux';
+import { addSubscription } from '../../../redux/actions/subscriptionActions';
 
-const Form = ({ handleSubmit, inSubscription, isDarkTheme }) => {
+const Form = ({ inSubscription, isDarkTheme }) => {
   const [subscription, setSubscription] = React.useState(inSubscription);
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -13,7 +16,7 @@ const Form = ({ handleSubmit, inSubscription, isDarkTheme }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(subscription);
+    dispatch(addSubscription(subscription));
     setSubscription(inSubscription);
   };
 

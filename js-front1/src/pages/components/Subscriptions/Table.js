@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { Card, CardContent, Typography, Button, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { lightTheme, darkTheme } from '../../../theme';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteSubscription } from '../../../redux/actions/subscriptionActions';
 
-const SubscriptionTable = ({ subscriptions, delSubscription, isDarkTheme }) => {
+const SubscriptionTable = ({ isDarkTheme }) => {
   const [view, setView] = useState('cards');
+  const dispatch = useDispatch();
+  const subscriptions = useSelector(state => state.subscriptions.subscriptions);
 
   const toggleView = () => {
     setView(view === 'cards' ? 'table' : 'cards');
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteSubscription(id));
   };
 
   return (
@@ -31,7 +39,7 @@ const SubscriptionTable = ({ subscriptions, delSubscription, isDarkTheme }) => {
                   <Typography color="text.secondary">
                     Подписчики: {subscription.followers.toLocaleString()}
                   </Typography>
-                  <Button onClick={() => delSubscription(subscription.id)}>
+                  <Button onClick={() => handleDelete(subscription.id)}>
                     Перестать отслеживать
                   </Button>
                 </CardContent>
@@ -56,7 +64,7 @@ const SubscriptionTable = ({ subscriptions, delSubscription, isDarkTheme }) => {
                     <TableCell>{subscription.category}</TableCell>
                     <TableCell>{subscription.followers.toLocaleString()}</TableCell>
                     <TableCell>
-                      <Button onClick={() => delSubscription(subscription.id)}>
+                      <Button onClick={() => handleDelete(subscription.id)}>
                         Перестать отслеживать
                       </Button>
                     </TableCell>
