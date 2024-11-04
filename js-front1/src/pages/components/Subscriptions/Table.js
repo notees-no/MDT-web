@@ -20,7 +20,7 @@ const SubscriptionTable = ({ isDarkTheme }) => {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <Box sx={{ padding: '24px', backgroundColor: isDarkTheme ? 'background.paper' : 'background.default', height: '100vh',}}>
+      <Box sx={{ padding: '24px', backgroundColor: isDarkTheme ? 'background.paper' : 'background.default', minHeight: 'calc(100vh - 40px)',}}>
         <Button onClick={toggleView}>
           Переключить на {view === 'cards' ? 'таблицу' : 'карточки'}
         </Button>
