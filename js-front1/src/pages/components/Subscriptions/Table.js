@@ -4,11 +4,13 @@ import { Card, CardContent, Typography, Button, Box, Table, TableBody, TableCell
 import { lightTheme, darkTheme } from '../../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSubscription } from '../../../redux/actions/subscriptionActions';
+import { getAllSubscriptions } from '../../../redux/selectors/subscriptionSelectors'; // Импортируйте селектор
 
 const SubscriptionTable = ({ isDarkTheme }) => {
   const [view, setView] = useState('cards');
   const dispatch = useDispatch();
-  const subscriptions = useSelector(state => state.subscriptions.subscriptions);
+  const subscriptions = useSelector(getAllSubscriptions);
+  
 
   const toggleView = () => {
     setView(view === 'cards' ? 'table' : 'cards');

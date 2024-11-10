@@ -3,31 +3,29 @@ import { Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { lightTheme, darkTheme } from '../../../theme';
+import { useSelector } from 'react-redux';
+import { selectUsers } from '../../../redux/selectors/userSelectors';
 
-const users = [
-  { id: 1, username: 'user', password: '123' },
-  { id: 2, username: 'admin', password: '123' },
-  { id: 3, username: '1', password: '1' },
-];
-
-const Login = ({ setAuthenticatedUser, isDarkTheme }) => {
+const Login = ({ setAuthenticatedUser , isDarkTheme }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [authenticated, setAuthenticated] = useState(false);
+  const users = useSelector(selectUsers);
+  const [error, setError] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const foundUser = users.find((user) => user.username === username && user.password === password);
-    if (foundUser) {
-      setAuthenticatedUser(foundUser);
-      setAuthenticated(true);
-    } else {
-      alert('Неверное имя пользователя или пароль');
-    }
+  const handleLogin = (event) => {
+      event.preventDefault();
+      const user = users.find((user) => user.username === username && user.password === password);
+      if (user) {
+          setAuthenticatedUser (user);
+          setRedirect(true);
+      } else {
+          setError(true);
+      }
   };
 
-  if (authenticated) {
-    return <Navigate to="/main" />;
+  if (redirect) {
+      return <Navigate to="/main" />;
   }
 
   return (
@@ -37,12 +35,14 @@ const Login = ({ setAuthenticatedUser, isDarkTheme }) => {
           <Typography variant="h4" component="h1" gutterBottom>
             Вход
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <div style={{ marginBottom: '20px' }}>
               <TextField
                 label="Имя пользователя"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
+                error={error}
+                helperText={error ? "Неверное имя пользователя или пароль" : ""}
               />
             </div>
             <div style={{ marginBottom: '20px' }}>
@@ -51,6 +51,8 @@ const Login = ({ setAuthenticatedUser, isDarkTheme }) => {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                error={error}
+                helperText={error ? "Неверное имя пользователя или пароль" : ""}
               />
             </div>
             <Button type="submit">Войти</Button>
