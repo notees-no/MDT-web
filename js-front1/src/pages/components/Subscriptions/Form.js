@@ -24,7 +24,7 @@ const Form = ({ inSubscription, isDarkTheme }) => {
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <Box component="form" onSubmit={onSubmit} sx={{
         padding: '24px', display: 'flex', flexDirection: 'row',
-        backgroundColor: isDarkTheme ? 'background.paper' : 'background.default',
+        backgroundColor: (theme) => theme.palette.background.default,
       }}>
         <TextField
           label="Название"

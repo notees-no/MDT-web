@@ -1,6 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 
 const lightTheme = createTheme({
+    palette: {
+        background: {
+            default: '#f7f7f8',
+            paper: '#ffffff',
+        },
+        text: {
+            primary: '#0E0E10',
+            secondary: '#53535F',
+        },
+    },
     components: {
         MuiTextField: {
             styleOverrides: {
@@ -28,10 +38,10 @@ const lightTheme = createTheme({
             styleOverrides: {
                 root: {
                     margin: '20px 0',
-                    padding: '10px 20px',
+                    padding: '12px 24px',
                     fontSize: '16px',
                     fontWeight: 'bold',
-                    borderRadius: '5px',
+                    borderRadius: '8px',
                     backgroundColor: '#9146FF',
                     color: '#ffffff',
                     '&:hover': {
@@ -44,11 +54,17 @@ const lightTheme = createTheme({
             styleOverrides: {
                 root: {
                     marginBottom: '16px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
                     backgroundColor: '#ffffff',
                     padding: '20px',
-                    borderRadius: '8px',
-                    width: '400px',
+                    borderRadius: '10px',
+                    width: '100%',
+                    maxWidth: '400px',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    '&:hover': {
+                        transform: 'translateY(-5px)',
+                        boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
+                    },
                 },
             },
         },
@@ -57,10 +73,10 @@ const lightTheme = createTheme({
                 root: {
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    padding: '0 20px',
-                    flexDirection: 'column',
+                    alignItems: 'flex-start', 
+                    flexWrap: 'wrap', 
+                    height: 'auto', 
+                    padding: '20px',
                 },
             },
         },
@@ -73,19 +89,19 @@ const lightTheme = createTheme({
             },
         },
     },
-    palette: {
-        background: {
-            default: '#f7f7f8',
-            paper: '#ffffff',
-        },
-        text: {
-            primary: '#0E0E10',
-            secondary: '#53535F',
-        },
-    },
 });
 
 const darkTheme = createTheme({
+    palette: {
+        background: {
+            default: '#0E0E10',
+            paper: '#18181B',
+        },
+        text: {
+            primary: '#EFEFF1',
+            secondary: '#ADADB8',
+        },
+    },
     components: {
         MuiTextField: {
             styleOverrides: {
@@ -113,10 +129,10 @@ const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     margin: '20px 0',
-                    padding: '10px 20px',
+                    padding: '12px 24px',
                     fontSize: '16px',
                     fontWeight: 'bold',
-                    borderRadius: '5px',
+                    borderRadius: '8px',
                     backgroundColor: '#9146FF',
                     color: '#ffffff',
                     '&:hover': {
@@ -129,11 +145,17 @@ const darkTheme = createTheme({
             styleOverrides: {
                 root: {
                     marginBottom: '16px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: '#1d1d20',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                    backgroundColor: '# 1d1d20',
                     padding: '20px',
-                    borderRadius: '8px',
-                    width: '400px',
+                    borderRadius: '10px',
+                    width: '100%',
+                    maxWidth: '400px',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    '&:hover': {
+                        transform: 'translateY(-5px)',
+                        boxShadow: '0 8px 20px rgba(0, 0, 0, 0.4)',
+                    },
                 },
             },
         },
@@ -142,10 +164,10 @@ const darkTheme = createTheme({
                 root: {
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    padding: '0 20px',
-                    flexDirection: 'column',
+                    alignItems: 'flex-start', 
+                    flexWrap: 'wrap', 
+                    height: 'auto', 
+                    padding: '20px',
                 },
             },
         },
@@ -158,16 +180,6 @@ const darkTheme = createTheme({
             },
         },
     },
-    palette: {
-        background: {
-            default: '#0E0E10',
-            paper: '#18181B',
-        },
-        text: {
-            primary: '#EFEFF1',
-            secondary: '#ADADB8',
-        },
-    },
 });
-
+ 
 export { lightTheme, darkTheme };

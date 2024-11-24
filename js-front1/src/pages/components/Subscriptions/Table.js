@@ -4,13 +4,12 @@ import { Card, CardContent, Typography, Button, Box, Table, TableBody, TableCell
 import { lightTheme, darkTheme } from '../../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSubscription } from '../../../redux/actions/subscriptionActions';
-import { getAllSubscriptions } from '../../../redux/selectors/subscriptionSelectors'; // Импортируйте селектор
+import { getAllSubscriptions } from '../../../redux/selectors/subscriptionSelectors';
 
 const SubscriptionTable = ({ isDarkTheme }) => {
   const [view, setView] = useState('cards');
   const dispatch = useDispatch();
   const subscriptions = useSelector(getAllSubscriptions);
-  
 
   const toggleView = () => {
     setView(view === 'cards' ? 'table' : 'cards');
@@ -22,13 +21,13 @@ const SubscriptionTable = ({ isDarkTheme }) => {
 
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <Box sx={{ padding: '24px', backgroundColor: isDarkTheme ? 'background.paper' : 'background.default', minHeight: 'calc(100vh - 40px)',}}>
+      <Box sx={{ padding: '24px', backgroundColor: (theme) => theme.palette.background.default, minHeight: 'calc(100vh - 40px)', }}>
         <Button onClick={toggleView}>
           Переключить на {view === 'cards' ? 'таблицу' : 'карточки'}
         </Button>
 
         {view === 'cards' ? (
-          <Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '10px' }}>
             {subscriptions.map((subscription, index) => (
               <Card key={index}>
                 <CardContent>
@@ -61,7 +60,7 @@ const SubscriptionTable = ({ isDarkTheme }) => {
               </TableHead>
               <TableBody>
                 {subscriptions.map((subscription, index) => (
-                  <TableRow key={index} sx={{ backgroundColor: isDarkTheme ? 'background.paper' : 'background.default', }}>
+                  <TableRow key={index} sx={{ backgroundColor: (theme) => theme.palette.background.paper }}>
                     <TableCell>{subscription.name}</TableCell>
                     <TableCell>{subscription.category}</TableCell>
                     <TableCell>{subscription.followers.toLocaleString()}</TableCell>
