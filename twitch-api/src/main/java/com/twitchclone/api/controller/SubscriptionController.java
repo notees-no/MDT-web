@@ -43,6 +43,7 @@ public class SubscriptionController {
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<Subscription>> getAllSubscriptions() {
         List<Subscription> subscriptions = subscriptionService.findAll();
+        System.out.println("Fetched subscriptions: " + subscriptions);
         return ResponseEntity.ok(subscriptions);
     }
 

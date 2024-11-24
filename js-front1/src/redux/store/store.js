@@ -1,7 +1,10 @@
-import { createStore } from 'redux';
-import { rootReducer } from '../reducers/rootReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../slices/authSlice';
+import subscriptionReducer from '../slices/subscriptionSlice';
 
-export const store = createStore(
-    rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    subscriptions: subscriptionReducer,
+  },
+});

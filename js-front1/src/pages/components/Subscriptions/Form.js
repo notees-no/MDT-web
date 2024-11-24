@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { TextField, Button, Box } from '@mui/material';
 import { lightTheme, darkTheme } from '../../../theme';
 import { useDispatch } from 'react-redux';
-import { addSubscription } from '../../../redux/actions/subscriptionActions';
+import { addSubscription } from '../../../redux/slices/subscriptionSlice';
 
 const Form = ({ inSubscription, isDarkTheme }) => {
   const [subscription, setSubscription] = React.useState(inSubscription);
