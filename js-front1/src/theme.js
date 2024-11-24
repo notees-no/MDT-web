@@ -73,9 +73,9 @@ const lightTheme = createTheme({
                 root: {
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'flex-start', 
-                    flexWrap: 'wrap', 
-                    height: 'auto', 
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap',
+                    height: 'auto',
                     padding: '20px',
                 },
             },
@@ -164,9 +164,9 @@ const darkTheme = createTheme({
                 root: {
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'flex-start', 
-                    flexWrap: 'wrap', 
-                    height: 'auto', 
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap',
+                    height: 'auto',
                     padding: '20px',
                 },
             },
@@ -181,5 +181,5 @@ const darkTheme = createTheme({
         },
     },
 });
- 
+
 export { lightTheme, darkTheme };

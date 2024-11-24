@@ -1,22 +1,22 @@
 import React from 'react';
 import Router from './Router';
-import ThemeChangeButton from './ThemeChangeButton';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
+import Navbar from './pages/components/Navbar/Navbar';
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = React.useState(null);
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
   const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+    setIsDarkTheme(prevTheme => !prevTheme);
   };
-  
+
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <BrowserRouter>
-        <ThemeChangeButton isDarkTheme={isDarkTheme} changeTheme={changeTheme} />
+        <Navbar isDarkTheme={isDarkTheme} toggleTheme={changeTheme} />
         <Router
           authenticatedUser={authenticatedUser}
           isDarkTheme={isDarkTheme}
