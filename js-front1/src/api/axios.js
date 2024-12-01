@@ -8,19 +8,16 @@ const instance = axios.create({
   },
 });
 
-// Функция для проверки истечения срока действия токена
 const isTokenExpired = (token) => {
   if (!token) return true;
   const decodedToken = jwtDecode(token);
-  return decodedToken.exp * 1000 < Date.now(); // Сравниваем с текущим временем
+  return decodedToken.exp * 1000 < Date.now();
 };
 
-// Перехватчик запроса для добавления токена в заголовки
 instance.interceptors.request.use(
   async (config) => {
     let token = localStorage.getItem('token');
 
-    // Проверка истечения срока действия токена
     if (isTokenExpired(token)) {
       const refreshToken = localStorage.getItem('refreshToken');
       if (refreshToken) {
@@ -30,22 +27,19 @@ instance.interceptors.request.use(
               'Authorization': `Bearer ${refreshToken}`
             }
           });
-          token = response.data.jwt; // Обновляем токен
-          localStorage.setItem('token', token); // Обновляем токен в localStorage
+          token = response.data.jwt; 
+          localStorage.setItem('token', token); 
         } catch (error) {
-          // Если не удалось обновить токен, удалите его и перенаправьте на вход
           localStorage.removeItem('token');
           localStorage.removeItem('refreshToken');
-          window.location.href = '/login'; // Или используйте history.push('/login')
+          window.location.href = '/login'; 
         }
       } else {
-        // Удалите токен и перенаправьте на вход
         localStorage.removeItem('token');
         window.location.href = '/login';
       }
     }
 
-    // Устанавливаем токен в заголовки
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
