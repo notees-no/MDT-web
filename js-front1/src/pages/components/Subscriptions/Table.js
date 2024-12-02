@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ThemeProvider, CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { Card, CardContent, Button, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { lightTheme, darkTheme } from '../../../theme';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteSubscription, fetchSubscriptions, selectAllSubscriptions, selectSubscriptionsStatus, selectSubscriptionsError } from '../../../redux/slices/subscriptionSlice';
 
@@ -75,63 +74,61 @@ const SubscriptionTable = ({ isDarkTheme }) => {
   }
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-      <Box sx={{ padding: '24px', backgroundColor: (theme) => theme.palette.background.default, minHeight: 'calc(100vh - 40px)', }}>
-        <Button onClick={toggleView}>
-          Переключить на {view === 'cards' ? 'таблицу' : 'карточки'}
-        </Button>
+    <Box sx={{ padding: '24px', backgroundColor: (theme) => theme.palette.background.default, minHeight: 'calc(100vh - 40px)', }}>
+      <Button onClick={toggleView}>
+        Переключить на {view === 'cards' ? 'таблицу' : 'карточки'}
+      </Button>
 
-        {view === 'cards' ? (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '10px' }}>
-            {subscriptions.map((subscription) => (
-              <Card key={subscription.id}>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {subscription.name}
-                  </Typography>
-                  <Typography color="text.secondary">
-                    Категория: {subscription.category}
-                  </Typography>
-                  <Typography color="text.secondary">
-                    Подписчики: {subscription.followers.toLocaleString()}
-                  </Typography>
-                  <Button onClick={() => handleDelete(subscription.id)}>
-                    Перестать отслеживать
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Название</TableCell>
-                  <TableCell>Категория</TableCell>
-                  <TableCell>Подписчики</TableCell>
-                  <TableCell>Действия</TableCell>
+      {view === 'cards' ? (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', gap: '10px' }}>
+          {subscriptions.map((subscription) => (
+            <Card key={subscription.id}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {subscription.name}
+                </Typography>
+                <Typography color="text.secondary">
+                  Категория: {subscription.category}
+                </Typography>
+                <Typography color="text.secondary">
+                  Подписчики: {subscription.followers.toLocaleString()}
+                </Typography>
+                <Button onClick={() => handleDelete(subscription.id)}>
+                  Перестать отслеживать
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      ) : (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Название</TableCell>
+                <TableCell>Категория</TableCell>
+                <TableCell>Подписчики</TableCell>
+                <TableCell>Действия</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {subscriptions.map((subscription) => (
+                <TableRow key={subscription.id} sx={{ backgroundColor: (theme) => theme.palette.background.paper }}>
+                  <TableCell>{subscription.name}</TableCell>
+                  <TableCell>{subscription.category}</TableCell>
+                  <TableCell>{subscription.followers.toLocaleString()}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleDelete(subscription.id)}>
+                      Перестать отслеживать
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {subscriptions.map((subscription) => (
-                  <TableRow key={subscription.id} sx={{ backgroundColor: (theme) => theme.palette.background.paper }}>
-                    <TableCell>{subscription.name}</TableCell>
-                    <TableCell>{subscription.category}</TableCell>
-                    <TableCell>{subscription.followers.toLocaleString()}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleDelete(subscription.id)}>
-                        Перестать отслеживать
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </Box>
-    </ThemeProvider>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </Box>
   );
 };
 

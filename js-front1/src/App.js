@@ -16,7 +16,7 @@ function App() {
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <BrowserRouter>
         <Navbar isDarkTheme={isDarkTheme} toggleTheme={changeTheme} />
-        <Router isDarkTheme={isDarkTheme} />
+      <Router isDarkTheme={isDarkTheme} toggleTheme={changeTheme} />
       </BrowserRouter>
     </ThemeProvider>
   );
