@@ -6,7 +6,9 @@ export const login = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post('/authenticate', { username, password });
-      localStorage.setItem('token', response.data.jwtToken);
+      const userId = response.data.userId;
+      localStorage.setItem(`jwt_token_${userId}`, response.data.jwtToken);
+      localStorage.setItem('user_id', userId);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message || 'Login failed');
@@ -15,7 +17,9 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-  localStorage.removeItem('token');
+  const userId = localStorage.getItem('user_id');
+  localStorage.removeItem(`jwt_token_${userId}`);
+  localStorage.removeItem('user_id');
 });
 
 const authSlice = createSlice({

@@ -4,7 +4,6 @@ import com.twitchclone.api.model.Subscription;
 import com.twitchclone.api.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +16,12 @@ public class SubscriptionController {
     private SubscriptionService subscriptionService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Subscription> createSubscription(@RequestBody Subscription subscription) {
         Subscription createdSubscription = subscriptionService.create(subscription);
         return ResponseEntity.ok(createdSubscription);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Subscription> updateSubscription(@PathVariable Long id,
             @RequestBody Subscription subscription) {
         subscription.setId(id);
@@ -33,14 +30,12 @@ public class SubscriptionController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Subscription> getSubscription(@PathVariable Long id) {
         Subscription subscription = subscriptionService.findById(id);
         return ResponseEntity.ok(subscription);
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<Subscription>> getAllSubscriptions() {
         List<Subscription> subscriptions = subscriptionService.findAll();
         System.out.println("Fetched subscriptions: " + subscriptions);
@@ -48,7 +43,6 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Void> deleteSubscription(@PathVariable Long id) {
         subscriptionService.delete(id);
         return ResponseEntity.noContent().build();
