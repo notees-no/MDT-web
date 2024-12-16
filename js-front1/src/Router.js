@@ -11,6 +11,13 @@ const PrivateRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
+const Main = () => (
+  <>
+    <Form inSubscription={{ name: "", category: "", followers: 0 }} />
+    <Table />
+  </>
+);
+
 const Router = ({ isDarkTheme, toggleTheme }) => {
   return (
     <Routes>
@@ -19,8 +26,7 @@ const Router = ({ isDarkTheme, toggleTheme }) => {
         path="/main"
         element={
           <PrivateRoute>
-            <Form inSubscription={{ name: "", category: "", followers: 0 }} />
-            <Table />
+            <Main />
           </PrivateRoute>
         }
       />

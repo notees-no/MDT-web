@@ -12,11 +12,13 @@ function App() {
     setIsDarkTheme(prevTheme => !prevTheme);
   };
 
+  const themeProps = { isDarkTheme, toggleTheme: changeTheme };
+
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <BrowserRouter>
-        <Navbar isDarkTheme={isDarkTheme} toggleTheme={changeTheme} />
-      <Router isDarkTheme={isDarkTheme} toggleTheme={changeTheme} />
+        <Navbar {...themeProps} />
+        <Router {...themeProps} />
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -23,6 +23,18 @@ const Login = ({ isDarkTheme }) => {
     return <Navigate to="/main" />;
   }
 
+  const renderTextField = (label, value, onChange, type = 'text') => (
+    <TextField
+      label={label}
+      value={value}
+      onChange={onChange}
+      type={type}
+      error={!!error}
+      helperText={error ? "Неверное имя пользователя или пароль" : ""}
+      fullWidth
+    />
+  );
+
   return (
     <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: (theme) => theme.palette.background.default }}>
       <Box sx={{ width: '300px', padding: '20px', backgroundColor: (theme) => theme.palette.background.paper, borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
@@ -31,25 +43,10 @@ const Login = ({ isDarkTheme }) => {
         </Typography>
         <form onSubmit={handleLogin}>
           <div style={{ marginBottom: '20px' }}>
-            <TextField
-              label="Имя пользователя"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              error={!!error}
-              helperText={error ? "Неверное имя пользователя или пароль" : ""}
-              fullWidth
-            />
+            {renderTextField("Имя пользователя", username, (event) => setUsername(event.target.value))}
           </div>
           <div style={{ marginBottom: '20px' }}>
-            <TextField
-              label="Пароль"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              error={!!error}
-              helperText={error ? "Неверное имя пользователя или пароль" : ""}
-              fullWidth
-            />
+            {renderTextField("Пароль", password, (event) => setPassword(event.target.value), 'password')}
           </div>
           <Button type="submit" variant="contained" fullWidth>Войти</Button>
         </form>
